@@ -4,7 +4,7 @@ enum {NORMAL, JUMP, FALL, LAND, DIE}
 const GRAVITY = 800
 const JUMP_VELOCITY = -200
 const AIR_JUMP_MULTIPLIER: float = 0.75
-const COYOTE_TIME: float = 0.1
+const COYOTE_TIME: float = 0.05
 
 @export var speed:int = 65
 @export var air_control:bool = true
@@ -19,7 +19,7 @@ func _ready():
 	pass
 
 func _process(delta):
-	if Input.is_action_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()
 
 	match state:
@@ -29,7 +29,7 @@ func _process(delta):
 				jump_start_y = global_position.y
 			else:
 				horizontal()
-				if Input.is_action_pressed("jump"):
+				if Input.is_action_just_pressed("jump"):
 					air_jumps = max_air_jumps
 					state = JUMP
 					jump()
@@ -74,8 +74,9 @@ func jump():
 	if air_control:
 		horizontal()
 
-	if Input.is_action_pressed("jump") and air_jumps >= 0:
+	if Input.is_action_just_pressed("jump") and air_jumps >= 0:
 		$AnimationPlayer.play("jump")
+		state = JUMP
 		if air_jumps == max_air_jumps:
 			velocity.y = JUMP_VELOCITY
 		else:
