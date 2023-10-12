@@ -6,6 +6,7 @@ var level_number:int = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	add_to_group("pickup_listeners")
 	call_deferred("init")
 	pass # Replace with function body.
 
@@ -24,3 +25,6 @@ func load_level(num:int):
 	var level = load(LVL_PATH % num).instantiate()
 	root.add_child(level)
 	return true
+
+func on_pickup(item):
+	print(item.name)

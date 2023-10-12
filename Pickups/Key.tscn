@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjxxlqf2q88im"]
+
+[ext_resource type="PackedScene" uid="uid://dvr4tpruim7g8" path="res://Pickups/BasePickup.tscn" id="1_s48hw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gr1yl"]
+
+[node name="Pickup" instance=ExtResource("1_s48hw")]
+
+[node name="Sprite2D" parent="." index="0"]
+frame = 13
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_gr1yl")
