@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cc4up7bxgemcm"]
+[gd_scene load_steps=8 format=3 uid="uid://cc4up7bxgemcm"]
 
 [ext_resource type="Texture2D" uid="uid://0j1i5j6d0b4a" path="res://dunjo.png" id="1_ki4in"]
 [ext_resource type="Script" path="res://Levels/Level.gd" id="1_wff40"]
 [ext_resource type="PackedScene" uid="uid://bjxxlqf2q88im" path="res://Pickups/Key.tscn" id="2_8apd2"]
 [ext_resource type="PackedScene" uid="uid://bqkwn3ay25jfv" path="res://Player.tscn" id="2_wrwmp"]
+[ext_resource type="PackedScene" uid="uid://civestb60s7nf" path="res://Pickups/Coin.tscn" id="3_ut7mh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_krxcc"]
 texture = ExtResource("1_ki4in")
@@ -170,6 +171,7 @@ sources/0 = SubResource("TileSetAtlasSource_krxcc")
 [node name="Level" type="Node2D"]
 script = ExtResource("1_wff40")
 key = ExtResource("2_8apd2")
+coin = ExtResource("3_ut7mh")
 player = ExtResource("2_wrwmp")
 
 [node name="Tiles" type="TileMap" parent="."]

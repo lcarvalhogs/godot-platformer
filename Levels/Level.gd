@@ -19,6 +19,8 @@ func setup_tiles():
 		match index:
 			KEY:
 				create_instance_from_tilemap(cell, key, $Items)
+			COIN:
+				create_instance_from_tilemap(cell, coin, $Items)
 			PLAYER:
 				create_instance_from_tilemap(cell, player, self, Vector2(6, 10))
 

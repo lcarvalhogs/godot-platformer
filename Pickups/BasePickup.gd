@@ -8,3 +8,8 @@ func _ready():
 
 func on_player_entered(body):
 	print(body.name)
+	get_tree().call_group("pickup_listeners", "on_pickup")	
+	queue_free()	# NB (lac): this is equivalent a "self.destroy"
+
+func on_pickup():
+	pass
