@@ -1,7 +1,11 @@
 extends Node2D
 
+const KEY: Vector2i = Vector2i(5,1)
+const COIN: Vector2i = Vector2i(0,5)
 const PLAYER: Vector2i = Vector2i(3,0)
 
+@export var key: PackedScene
+@export var coin: PackedScene
 @export var player: PackedScene
 
 func _ready():
@@ -13,6 +17,8 @@ func setup_tiles():
 	for cell in cells:
 		var index = $Tiles.get_cell_atlas_coords(0, Vector2i(cell.x, cell.y))
 		match index:
+			KEY:
+				create_instance_from_tilemap(cell, key, $Items)
 			PLAYER:
 				create_instance_from_tilemap(cell, player, self, Vector2(6, 10))
 
