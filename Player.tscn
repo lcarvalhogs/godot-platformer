@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqkwn3ay25jfv"]
+[gd_scene load_steps=9 format=3 uid="uid://bqkwn3ay25jfv"]
 
+[ext_resource type="Script" path="res://Player.gd" id="1_5s5u7"]
 [ext_resource type="Texture2D" uid="uid://0j1i5j6d0b4a" path="res://dunjo.png" id="1_ys0yk"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oxep2"]
@@ -106,6 +107,7 @@ _data = {
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 29
+script = ExtResource("1_5s5u7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
@@ -121,6 +123,7 @@ vframes = 6
 frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_la6hn")
 }
