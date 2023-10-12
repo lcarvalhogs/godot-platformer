@@ -43,10 +43,10 @@ _data = {
 "spin": SubResource("Animation_hdaen")
 }
 
-[node name="Pickup" instance=ExtResource("1_f1knr")]
+[node name="Coin" instance=ExtResource("1_f1knr")]
 
 [node name="Sprite2D" parent="." index="0"]
-frame = 46
+frame = 40
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("RectangleShape2D_sytn5")
