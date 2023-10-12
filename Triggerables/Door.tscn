@@ -1,6 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b1urtldcmyit7"]
+[gd_scene load_steps=8 format=3 uid="uid://b1urtldcmyit7"]
 
 [ext_resource type="PackedScene" uid="uid://coinah2h6kwbn" path="res://Triggerables/BaseTriggerable.tscn" id="1_aa6bb"]
+[ext_resource type="Script" path="res://Triggerables/Door.gd" id="2_76avp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jxi3n"]
 
 [sub_resource type="Animation" id="Animation_ux64m"]
 resource_name = "closed"
@@ -55,9 +58,14 @@ _data = {
 }
 
 [node name="Door" instance=ExtResource("1_aa6bb")]
+script = ExtResource("2_76avp")
+tag = "Door"
 
 [node name="Sprite2D" parent="." index="0"]
 frame = 15
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_jxi3n")
 
 [node name="AnimationPlayer" parent="." index="2"]
 libraries = {
