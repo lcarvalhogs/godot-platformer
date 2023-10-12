@@ -8,6 +8,8 @@ func _ready():
 	pass
 
 func _process(delta):
+	if Input.is_action_pressed("ui_cancel"):
+		get_tree().quit()
 	horizontal()
 
 func _physics_process(delta):
