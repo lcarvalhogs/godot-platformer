@@ -8,8 +8,6 @@ var level_number:int = 1
 func _ready():
 	add_to_group("pickup_listeners")
 	call_deferred("init")
-	pass # Replace with function body.
-
 
 func init():
 	load_level(level_number)
@@ -28,3 +26,5 @@ func load_level(num:int):
 
 func on_pickup(item):
 	print(item.name)
+	if item.name == "Key":
+		get_tree().call_group("triggerable", "trigger", "Door")
