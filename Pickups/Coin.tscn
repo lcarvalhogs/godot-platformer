@@ -44,6 +44,7 @@ _data = {
 }
 
 [node name="Coin" instance=ExtResource("1_f1knr")]
+animation_random_start = true
 
 [node name="Sprite2D" parent="." index="0"]
 frame = 40

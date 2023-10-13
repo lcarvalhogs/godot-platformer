@@ -1,10 +1,14 @@
 extends Area2D
 
+@export var animation_random_start: bool = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	connect("body_entered", on_player_entered)
-	pass # Replace with function body.
+	
+	if animation_random_start:
+		var animation_offset = $AnimationPlayer.current_animation_length * randf()
+		$AnimationPlayer.advance(animation_offset)
+		
 
 func on_player_entered(body):
 	get_tree().call_group("game", "on_pickup", self)
