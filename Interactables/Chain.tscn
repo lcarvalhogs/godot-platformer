@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6g0ylyf0cg0h"]
+
+[ext_resource type="PackedScene" uid="uid://dg1t3fbegby3m" path="res://Interactables/BaseInteractable.tscn" id="1_qpun8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eqcnj"]
+
+[node name="Chain" instance=ExtResource("1_qpun8")]
+type = 1
+
+[node name="Sprite2D" parent="." index="0"]
+frame = 23
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_eqcnj")

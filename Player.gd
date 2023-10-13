@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-enum {NORMAL, JUMP, FALL, LAND, DIE}
+enum {NORMAL, JUMP, FALL, LAND, DIE, CLIMB_CHAIN}
 const GRAVITY = 800
 const JUMP_VELOCITY = -200
 const AIR_JUMP_MULTIPLIER: float = 0.75
@@ -36,6 +36,8 @@ func _process(delta):
 		JUMP:
 			jump()
 			pass
+		CLIMB_CHAIN:
+			climb_chain()
 		FALL:
 			if is_on_floor():
 				state = LAND
@@ -45,7 +47,6 @@ func _process(delta):
 			fall_time += delta
 		LAND:
 			if $DustTimer.is_stopped():
-				print("emit")
 				$FootDust.emitting = true
 				$DustTimer.start($FootDust.lifetime + 0.15)
 			fall_time = 0
@@ -55,7 +56,8 @@ func _process(delta):
 			pass
 
 func _physics_process(delta):
-	velocity.y += GRAVITY * delta
+	if state != CLIMB_CHAIN:
+		velocity.y += GRAVITY * delta
 	move_and_slide()
 
 func horizontal():
@@ -74,6 +76,14 @@ func horizontal():
 		else:
 			$AnimationPlayer.play("walk")
 
+func vertical():
+	if Input.is_action_pressed("up"):
+		velocity.y = -speed/2.0
+	elif Input.is_action_pressed("down"):
+		velocity.y = 0.75 * speed
+	else:
+		velocity.y = 0
+
 func jump():
 	if air_control:
 		horizontal()
@@ -90,3 +100,19 @@ func jump():
 		jump_start_y = global_position.y
 	if is_on_floor() and velocity.y >= 0:
 		state = LAND
+
+func climb_chain():
+	velocity.x = 0
+	vertical()
+
+var vines = 0
+func on_interact_enter(position: Vector2, type):
+	vines += 1
+	if state == JUMP:
+		global_position.x = position.x
+		state = CLIMB_CHAIN
+
+func on_interact_exit(position: Vector2, type):
+	vines = max(0, vines - 1)
+	if vines == 0 and state == CLIMB_CHAIN:
+		state = FALL
