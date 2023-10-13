@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg1t3fbegby3m"]
+
+[ext_resource type="Script" path="res://Interactables/BaseInteractable.gd" id="1_m7i4r"]
+[ext_resource type="Texture2D" uid="uid://0j1i5j6d0b4a" path="res://dunjo.png" id="2_yboi7"]
+
+[node name="Interactable" type="Area2D"]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("1_m7i4r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_yboi7")
+hframes = 8
+vframes = 6
+frame = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
