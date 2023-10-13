@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cc4up7bxgemcm"]
+[gd_scene load_steps=11 format=3 uid="uid://cc4up7bxgemcm"]
 
 [ext_resource type="Texture2D" uid="uid://0j1i5j6d0b4a" path="res://dunjo.png" id="1_ki4in"]
 [ext_resource type="Script" path="res://Levels/Level.gd" id="1_wff40"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b1urtldcmyit7" path="res://Triggerables/Door.tscn" id="3_3ipqv"]
 [ext_resource type="PackedScene" uid="uid://civestb60s7nf" path="res://Pickups/Coin.tscn" id="3_ut7mh"]
 [ext_resource type="PackedScene" uid="uid://b6g0ylyf0cg0h" path="res://Interactables/Chain.tscn" id="4_meh5i"]
+[ext_resource type="PackedScene" uid="uid://cajsfpnv3ph4w" path="res://Interactables/Ladder.tscn" id="5_7cws3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_krxcc"]
 texture = ExtResource("1_ki4in")
@@ -175,6 +176,7 @@ script = ExtResource("1_wff40")
 key = ExtResource("2_8apd2")
 door = ExtResource("3_3ipqv")
 chain = ExtResource("4_meh5i")
+ladder = ExtResource("5_7cws3")
 coin = ExtResource("3_ut7mh")
 player = ExtResource("2_wrwmp")
 

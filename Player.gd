@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-enum PlayerState {NORMAL, JUMP, FALL, LAND, DIE, CLIMB_CHAIN}
+enum PlayerState {NORMAL, JUMP, FALL, LAND, DIE, CLIMB}
 const GRAVITY = 800
 const JUMP_VELOCITY = -200
 const AIR_JUMP_MULTIPLIER: float = 0.75
@@ -16,8 +16,8 @@ var air_jumps: int = 0
 var jump_start_y: float = 0.0
 var fall_time: float = 0.0
 
-var vines: int = 0
-var last_vine_x: int = 0
+var climbables: int = 0
+var last_climbable_x: int = 0
 
 func _ready():
 	pass
@@ -37,11 +37,17 @@ func _process(delta):
 					air_jumps = max_air_jumps
 					change_state(PlayerState.JUMP)
 					jump()
+				elif climbables > 0:
+					vertical()
+					if velocity.y < 0:
+						global_position.x = last_climbable_x
+						change_state(PlayerState.CLIMB)
 		PlayerState.JUMP:
 			jump()
-			pass
-		PlayerState.CLIMB_CHAIN:
-			climb_chain()
+		PlayerState.CLIMB:
+			climb()
+			if is_on_floor() and velocity.y > 0:
+				change_state(PlayerState.NORMAL)
 		PlayerState.FALL:
 			if is_on_floor():
 				change_state(PlayerState.LAND)
@@ -60,7 +66,7 @@ func _process(delta):
 			pass
 
 func _physics_process(delta):
-	if state != PlayerState.CLIMB_CHAIN:
+	if state != PlayerState.CLIMB:
 		velocity.y += GRAVITY * delta
 	move_and_slide()
 
@@ -108,7 +114,7 @@ func jump():
 	if is_on_floor() and velocity.y >= 0:
 		change_state(PlayerState.LAND)
 
-func climb_chain():
+func climb():
 	velocity.x = 0
 	vertical()
 	if Input.is_action_just_pressed("jump"):
@@ -119,15 +125,15 @@ func climb_chain():
 			jump()
 
 func on_Area2D_enter(area):
-	if area.type == Utils.InteractType.CHAIN:
-		vines += 1
-		if state == PlayerState.JUMP and (previous_state != PlayerState.CLIMB_CHAIN or last_vine_x != area.global_position.x):
-			last_vine_x = area.global_position.x
-			global_position.x = position.x
-			change_state(PlayerState.CLIMB_CHAIN)
+	if area.type == Utils.InteractType.CHAIN or area.type == Utils.InteractType.LADDER:
+		climbables += 1
+		if state == PlayerState.JUMP and (previous_state != PlayerState.CLIMB or last_climbable_x != area.global_position.x):
+			global_position.x = area.global_position.x
+			change_state(PlayerState.CLIMB)
+			last_climbable_x = area.global_position.x
 
 func on_Area2D_exit(area):
-	if area.type == Utils.InteractType.CHAIN:
-		vines = max(0, vines - 1)
-		if vines == 0 and state == PlayerState.CLIMB_CHAIN:
+	if area.type == Utils.InteractType.CHAIN or area.type == Utils.InteractType.LADDER:
+		climbables = max(0, climbables - 1)
+		if climbables == 0 and state == PlayerState.CLIMB:
 			change_state(PlayerState.FALL)
