@@ -42,6 +42,10 @@ func _process(delta):
 					if velocity.y < 0:
 						global_position.x = last_climbable_x
 						change_state(PlayerState.CLIMB)
+				elif $RayCast2D.is_colliding() && Input.is_action_pressed("down"):
+					var area = $RayCast2D.get_collider().get_node("Area2D")
+					global_position = Vector2(position.x, position.y + 1)
+					change_state(PlayerState.CLIMB)
 		PlayerState.JUMP:
 			jump()
 		PlayerState.CLIMB:

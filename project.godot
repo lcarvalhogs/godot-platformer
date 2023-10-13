@@ -61,6 +61,7 @@ down={
 2d_physics/layer_4="Triggers"
 2d_physics/layer_5="Enemies"
 2d_physics/layer_6="Interactables"
+2d_physics/layer_7="OneWay"
 
 [rendering]
 
