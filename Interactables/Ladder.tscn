@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cajsfpnv3ph4w"]
+
+[ext_resource type="PackedScene" uid="uid://dg1t3fbegby3m" path="res://Interactables/BaseInteractable.tscn" id="1_4nltc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gbneg"]
+
+[node name="Ladder" instance=ExtResource("1_4nltc")]
+type = 2
+
+[node name="Sprite2D" parent="." index="0"]
+frame = 35
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_gbneg")
