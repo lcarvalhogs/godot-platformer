@@ -5,8 +5,8 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jxi3n"]
 
-[sub_resource type="Animation" id="Animation_ux64m"]
-resource_name = "closed"
+[sub_resource type="Animation" id="Animation_bhwv1"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -20,8 +20,8 @@ tracks/0/keys = {
 "values": [15]
 }
 
-[sub_resource type="Animation" id="Animation_bhwv1"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_ux64m"]
+resource_name = "closed"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

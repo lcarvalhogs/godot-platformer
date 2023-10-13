@@ -44,6 +44,10 @@ func _process(delta):
 				jump()
 			fall_time += delta
 		LAND:
+			if $DustTimer.is_stopped():
+				print("emit")
+				$FootDust.emitting = true
+				$DustTimer.start($FootDust.lifetime + 0.15)
 			fall_time = 0
 			state = NORMAL
 			pass

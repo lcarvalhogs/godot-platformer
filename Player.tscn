@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bqkwn3ay25jfv"]
+[gd_scene load_steps=10 format=3 uid="uid://bqkwn3ay25jfv"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_5s5u7"]
 [ext_resource type="Texture2D" uid="uid://0j1i5j6d0b4a" path="res://dunjo.png" id="1_ys0yk"]
+[ext_resource type="PackedScene" uid="uid://w2xo1nynjrk0" path="res://FootDust.tscn" id="3_8ioq3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oxep2"]
 radius = 3.0
@@ -127,3 +128,8 @@ autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_la6hn")
 }
+
+[node name="DustTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FootDust" parent="." instance=ExtResource("3_8ioq3")]
