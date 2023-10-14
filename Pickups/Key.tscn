@@ -5,6 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gr1yl"]
 
 [node name="Key" instance=ExtResource("1_s48hw")]
+delete_on_pickup = false
 
 [node name="Sprite2D" parent="." index="0"]
 frame = 13

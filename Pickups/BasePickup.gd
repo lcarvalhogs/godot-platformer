@@ -1,6 +1,7 @@
 extends Area2D
 
 @export var animation_random_start: bool = false
+@export var delete_on_pickup: bool = true
 
 func _ready():
 	connect("body_entered", on_player_entered)
@@ -12,4 +13,5 @@ func _ready():
 
 func on_player_entered(body):
 	get_tree().call_group("game", "on_pickup", self)
-	queue_free()	# NB (lac): this is equivalent a "self.destroy"
+	if delete_on_pickup:
+		queue_free()	# NB (lac): this is equivalent a "self.destroy"
