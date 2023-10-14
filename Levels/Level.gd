@@ -1,4 +1,5 @@
 extends Node2D
+class_name Level
 
 const KEY: Vector2i = Vector2i(5,1)
 const DOOR: Vector2i = Vector2i(7,1)
@@ -7,6 +8,9 @@ const LADDER: Vector2i = Vector2i(3,4)
 const LADDER_TOP: Vector2i = Vector2i(6,5)
 const COIN: Vector2i = Vector2i(0,5)
 const PLAYER: Vector2i = Vector2i(3,0)
+const COMPUTER: Vector2i = Vector2i(5,4)
+const BLOCK_OUTLINE: Vector2i = Vector2i(4,2)
+const BLOCK: Vector2i = Vector2i(5,2)
 
 @export var key: PackedScene
 @export var door: PackedScene
@@ -15,6 +19,9 @@ const PLAYER: Vector2i = Vector2i(3,0)
 @export var ladder_top: PackedScene
 @export var coin: PackedScene
 @export var player: PackedScene
+@export var computer: PackedScene
+
+var tileset_dimension: Vector2i = Vector2i(8,6)
 
 func _ready():
 	call_deferred("setup_tiles")
@@ -39,9 +46,16 @@ func setup_tiles():
 				create_instance_from_tilemap(cell, coin, $Items)
 			PLAYER:
 				create_instance_from_tilemap(cell, player, self, Vector2(6, 10))
+			COMPUTER:
+				create_instance_from_tilemap(cell, computer, $Triggerables)
 
 func create_instance_from_tilemap(coord: Vector2, prefab: PackedScene, parent: Node2D, offset: Vector2 = Vector2.ZERO):
 	$Tiles.set_cell(0, coord, -1)
 	var pf = prefab.instantiate()
 	pf.position = $Tiles.map_to_local(coord) + offset
 	parent.add_child((pf))
+
+func replace_tiles(old_tile: Vector2i, new_tile: Vector2i):
+	var cells = $Tiles.get_used_cells_by_id(0, 0, old_tile)
+	for cell in cells:
+		$Tiles.set_cell(0, Vector2i(cell.x, cell.y), 0, new_tile)
