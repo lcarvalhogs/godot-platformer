@@ -3,12 +3,23 @@
 [ext_resource type="Script" path="res://Game.gd" id="1_8eg17"]
 
 [node name="Game" type="Node2D"]
+process_mode = 3
 script = ExtResource("1_8eg17")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_right = 327.0
-offset_bottom = 170.0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 325.0
+offset_bottom = 169.0
 color = Color(0.0666667, 0.0705882, 0.145098, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 offset = Vector2(162, 84)
+
+[node name="Node2D" type="Node2D" parent="."]
+z_index = 10
+
+[node name="Fader" type="ColorRect" parent="Node2D"]
+offset_right = 324.0
+offset_bottom = 168.0
+color = Color(0, 0, 0, 0)

@@ -2,6 +2,8 @@ extends Node2D
 
 const LVL_PATH = "res://Levels/Level%d.tscn"
 
+@export var fade_time: float = .5
+
 var level_number:int = 1
 
 # Called when the node enters the scene tree for the first time.
@@ -35,8 +37,20 @@ func get_level_node():
 
 func on_next_level():
 	level_number += 1
-	# TODO (lac): Add a scene transition
+	
+	get_tree().paused = true	# NB (lac): Pause the game, which is in "process" mode (levelr are not)
+	var tween = get_tree().create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)	# NB (lac): set tween to always process
+	tween.tween_property($Node2D/Fader, "color:a", 1, fade_time).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)	
+	await(tween.finished)
+
 	load_level(level_number)
+
+	tween = get_tree().create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property($Node2D/Fader, "color:a", 0, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	await(tween.finished)
+	get_tree().paused = false
 	# TODO (lac): Do something when there are no more levels
 
 func on_pickup(item):
