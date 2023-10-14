@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cc4up7bxgemcm"]
+[gd_scene load_steps=13 format=3 uid="uid://cc4up7bxgemcm"]
 
 [ext_resource type="Texture2D" uid="uid://0j1i5j6d0b4a" path="res://dunjo.png" id="1_ki4in"]
 [ext_resource type="Script" path="res://Levels/Level.gd" id="1_wff40"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b6g0ylyf0cg0h" path="res://Interactables/Chain.tscn" id="4_meh5i"]
 [ext_resource type="PackedScene" uid="uid://cajsfpnv3ph4w" path="res://Interactables/Ladder.tscn" id="5_7cws3"]
 [ext_resource type="PackedScene" uid="uid://cgcjsfxohhhe0" path="res://Interactables/LadderTop.tscn" id="6_tidl1"]
+[ext_resource type="PackedScene" uid="uid://j20lkvt7tth6" path="res://Triggerables/Computer.tscn" id="9_1t6jc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_krxcc"]
 texture = ExtResource("1_ki4in")
@@ -76,6 +77,7 @@ texture_region_size = Vector2i(12, 12)
 5:2/0 = 0
 5:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:2/0/physics_layer_0/angular_velocity = 0.0
+5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6, -6, 6, -6, 6, 6, -6, 6)
 0:3/0 = 0
 0:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:3/0/physics_layer_0/angular_velocity = 0.0
@@ -103,6 +105,7 @@ texture_region_size = Vector2i(12, 12)
 6:2/0 = 0
 6:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:2/0/physics_layer_0/angular_velocity = 0.0
+6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6, -6, 6, -6, 6, 6, -6, 6)
 6:3/0 = 0
 6:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:3/0/physics_layer_0/angular_velocity = 0.0
@@ -181,6 +184,7 @@ ladder = ExtResource("5_7cws3")
 ladder_top = ExtResource("6_tidl1")
 coin = ExtResource("3_ut7mh")
 player = ExtResource("2_wrwmp")
+computer = ExtResource("9_1t6jc")
 
 [node name="Tiles" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_iix7v")
