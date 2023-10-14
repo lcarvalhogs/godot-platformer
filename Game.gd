@@ -5,6 +5,7 @@ const LVL_PATH = "res://Levels/Level%d.tscn"
 @export var fade_time: float = .5
 
 var level_number:int = 1
+var level_door: Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -35,28 +36,55 @@ func get_level_node():
 
 # Game group functions
 
+func on_set_door(new_door):
+	level_door = new_door
+
 func on_next_level():
 	level_number += 1
 	
+	# NB (lac): Scene transition
 	get_tree().paused = true	# NB (lac): Pause the game, which is in "process" mode (levelr are not)
-	var tween = get_tree().create_tween()
+	var tween: Tween = get_tree().create_tween()
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)	# NB (lac): set tween to always process
 	tween.tween_property($Node2D/Fader, "color:a", 1, fade_time).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)	
 	await(tween.finished)
 
 	load_level(level_number)
 
+	# NB (lac): Scene transition
 	tween = get_tree().create_tween()
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	tween.tween_property($Node2D/Fader, "color:a", 0, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property($Node2D/Fader, "color:a", 0, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 	await(tween.finished)
 	get_tree().paused = false
 	# TODO (lac): Do something when there are no more levels
 
 func on_pickup(item):
-	print(item.name)
 	if item.name == "Key":
+		get_tree().paused = true
+		var tween: Tween = get_tree().create_tween()
+		tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+		tween.tween_property(item, "position", item.position - Vector2(0, 20), 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		tween.play()
+		await(tween.finished)
+
+		# NB (lac): Small pause
+		await(get_tree().create_timer(.25))
+
+		# NB (lac): Make key go to door, rotating
+		tween = get_tree().create_tween().set_parallel(true)
+		tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+		tween.tween_property(item, "position", level_door.position, .6).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+		tween.tween_property(item, "rotation", item.rotation - TAU, .5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+		tween.tween_property(item, "scale", Vector2.ONE * .1, .6).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+		tween.play()
+		await(tween.finished)
+
+		# NB (lac): Delete item
+		item.queue_free()
+
 		get_tree().call_group("triggerable", "trigger", "Door")
+		get_tree().paused = false
 
 func on_computer():
 	var level: Level = get_level_node()
