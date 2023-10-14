@@ -75,14 +75,11 @@ func _physics_process(delta):
 	move_and_slide()
 
 func horizontal():
-	if Input.is_action_pressed("right"):
-		velocity.x = speed
-		$Sprite2D.flip_h = false
-	elif Input.is_action_pressed("left"):
-		velocity.x = -speed
-		$Sprite2D.flip_h = true
-	elif is_on_floor() or air_control:
-		velocity.x = 0
+	var dx: float = Input.get_action_strength("right") - Input.get_action_strength("left")
+	velocity.x = dx * speed
+
+	if dx != 0:
+		$Sprite2D.flip_h = dx < 0
 
 	if is_on_floor():
 		if velocity.x == 0:
