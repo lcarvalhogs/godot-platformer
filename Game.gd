@@ -69,7 +69,7 @@ func on_pickup(item):
 		await(tween.finished)
 
 		# NB (lac): Small pause
-		await(get_tree().create_timer(.25))
+		await(get_tree().create_timer(.25).timeout)
 
 		# NB (lac): Make key go to door, rotating
 		tween = get_tree().create_tween().set_parallel(true)
