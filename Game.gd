@@ -89,3 +89,17 @@ func on_pickup(item):
 func on_computer():
 	var level: Level = get_level_node()
 	level.replace_tiles(level.BLOCK_OUTLINE, level.BLOCK)
+
+func on_player_spawn(player: Node2D):
+	if player != null:
+		$Camera2D.set_camera_target(player)
+		pass
+
+func on_level_loaded(camera_bounds_top: Vector2, extents: Vector2):
+	if camera_bounds_top != null and extents != null:
+		var camera_node: Camera2D = $Camera2D
+		camera_node.limit_left = camera_bounds_top.x
+		camera_node.limit_top = camera_bounds_top.y
+
+		camera_node.limit_right = camera_bounds_top.x + extents.x * 2
+		camera_node.limit_bottom = camera_bounds_top.y + extents.y * 2

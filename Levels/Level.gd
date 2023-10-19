@@ -28,6 +28,7 @@ func _ready():
 	pass # Replace with function body.
 
 func setup_tiles():
+	var player_instance
 	var cells = $Tiles.get_used_cells(0)
 	for cell in cells:
 		var index = $Tiles.get_cell_atlas_coords(0, Vector2i(cell.x, cell.y))
@@ -45,15 +46,20 @@ func setup_tiles():
 			COIN:
 				create_instance_from_tilemap(cell, coin, $Items)
 			PLAYER:
-				create_instance_from_tilemap(cell, player, self, Vector2(6, 10))
+				player_instance = create_instance_from_tilemap(cell, player, self, Vector2(6, 10))
 			COMPUTER:
 				create_instance_from_tilemap(cell, computer, $Triggerables)
+
+	get_tree().call_group("game", "on_level_loaded", $Area2D.position, $Area2D/CollisionShape2D.shape.extents)
+	if player_instance != null:
+		get_tree().call_group("game", "on_player_spawn", player_instance)
 
 func create_instance_from_tilemap(coord: Vector2, prefab: PackedScene, parent: Node2D, offset: Vector2 = Vector2.ZERO):
 	$Tiles.set_cell(0, coord, -1)
 	var pf = prefab.instantiate()
 	pf.position = $Tiles.map_to_local(coord) + offset
 	parent.add_child((pf))
+	return pf
 
 func replace_tiles(old_tile: Vector2i, new_tile: Vector2i):
 	var cells = $Tiles.get_used_cells_by_id(0, 0, old_tile)
